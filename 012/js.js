@@ -59,31 +59,31 @@
 // arr = ans.split(',');
 // console.log(arr);
 
-// відправити на сервер
+// // відправити на сервер
 
-let arr = ["aawe", "zas", "poe"],
-    i =arr.join(", ");
+// let arr = ["aawe", "zas", "poe"],
+//     i =arr.join(", ");
     
-    console.log(arr);
-    console.log(i);
+//     console.log(arr);
+//     console.log(i);
 
 
-// сортування стрічок
+// // сортування стрічок
 
-let arr = ["aawe", "zas", "poe"],
-    i =arr.sort();
+// let arr = ["aawe", "zas", "poe"],
+//     i =arr.sort();
     
-    console.log(arr);
+//     console.log(arr);
 
-// сортування цифр
+// // сортування цифр
 
 
-let arr = [1, 15, 4],
-    i =arr.sort();
-function compareNum(a,b) {
-    return a-b;
-}
-    console.log(arr);
+// let arr = [1, 15, 4],
+//     i =arr.sort();
+// function compareNum(a,b) {
+//     return a-b;
+// }
+//     console.log(arr);
 
 // OOP Прототип
 
