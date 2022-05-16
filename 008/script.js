@@ -36,7 +36,7 @@ switch (num) {
     case 50: // num == 50: не правельний запис
         console.log("Верно");
         break;
-    // default:
-    //     console.log("Чтото пошло не так");
-    //     break;
+    default:
+        console.log("Чтото пошло не так");
+        break;
 }
