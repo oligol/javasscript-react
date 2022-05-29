@@ -149,9 +149,9 @@ let bnt = document.querySelector('button');
 bnt.addEventListener('click', function() {
     console.log(this);
 
-    this.style.backgroundColor = "red";
-    function showThis () {
-        console.log(this);
-    }
+    // this.style.backgroundColor = "red";
+    // function showThis () {
+    //     console.log(this);
+    // }
 
 });
