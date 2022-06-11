@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function() {
     
-    'use striсt';
+    'use strict';
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
@@ -49,28 +49,28 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // timer
 
-    let deadLine = "2022-05-10";
+    let deadLine = '2022-06-12';
 
-    function getTimeRemaining(endTime) {
-        let t = Date.parse(endTime) - Date.parse(new Date()),
+    function getTimeRemaining(endtime) {
+        let t = Date.parse(endtime) - Date.parse(new Date()),
             seconds = Math.floor((t/1000)%60),
             minutes = Math.floor((t/1000/60)%60),
             hours = Math.floor((t/(1000*60*60)));
-
             return {
                 'total' : t,
                 'hours' : hours,
                 'minutes' : minutes,
-                'seconds' : seconds
+                'seconds' : seconds,
             };
-
+            
+            
     }
 
     function setClock(id, endtime) {
         let timer = document.getElementById(id),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
-            seconds = timer.querySelector('.seconds');
+            seconds = timer.querySelector('.seconds'),
             timerInterval = setInterval(updateClock, 1000);
 
         function updateClock() {
@@ -78,14 +78,12 @@ window.addEventListener('DOMContentLoaded', function() {
             hours.textContent = ('0' + t.hours).slice(-2);
             minutes.textContent = ('0' + t.minutes).slice(-2);
             seconds.textContent = ('0' + t.seconds).slice(-2);
-
             if (t.total <= 0) {
                 clearInterval(timerInterval);
             }
         }
     }
     setClock('timer', deadLine);
-
 
     // modal
 
@@ -106,4 +104,96 @@ window.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = ''; //прокрутка сторінки увім
     });
 
+
+    // Form PHP standart
+
+    // let message = {
+    //     loading: 'Загрузка',
+    //     success: 'Спасибо! Скоро мы c вами свяжемся!',
+    //     failure: 'Что-то пошло не так...!',
+    // };
+    // let form = document.querySelector('.main-form'),
+    //     input = form.getElementsByTagName('input'),
+    //     statusMessage = document.createElement('div');
+
+    //     statusMessage.classList.add('status');
+        
+    // form.addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //     form.appendChild(statusMessage);
+
+    //     let request = new XMLHttpRequest();
+    //     request.open('POST', 'server.php');
+    //     request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded');
+
+    //     let formData = new FormData(form);
+    //     request.send(formData);
+
+    //     request.addEventListener('readystatechange', function() {
+    //         if (request.readyState < 4) {
+    //             statusMessage.innerHTML = message.loading;
+    //         } else if (request.readyState === 4 && request.status == 200) {
+    //             statusMessage.innerHTML = message.success;
+    //         } else {
+    //             statusMessage.innerHTML = message.failure;
+    //         }
+
+    //         for (let i = 0; i < input.length; i++) {
+    //             input[i].value = '';
+    //         }
+    //     });
+
+    // }); 
+
+
+    // form JSON
+
+    let message = {
+        loading: 'Загрузка',
+        success: 'Спасибо! Скоро мы c вами свяжемся!',
+        failure: 'Что-то пошло не так...!',
+    };
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+        statusMessage.classList.add('status');
+        
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        form.appendChild(statusMessage);
+
+        let request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+        // edit etRequestHeader
+        request.setRequestHeader ('Content-Type', 'application/json; charset=utf-8');
+
+        let formData = new FormData(form);
+        // add object empty and edit next strings
+        let obj = {};
+        formData.forEach(function(value, key) {
+            obj[key] = value;    
+        });
+
+        let json = JSON.stringify(obj);
+
+        request.send(json);
+
+        // add object empty and edit
+
+        request.addEventListener('readystatechange', function() {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
+            }
+        });
+
+    });
 });

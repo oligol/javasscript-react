@@ -35,13 +35,14 @@ inputUah.addEventListener('input', () => {
 
 
     // // властивості XMLHttpRequest 
-    // 1. status
+    // 1. status (404, 200, 0, 503...)
     // 2. statusTaxt
-    // 3. responseText
-    // 4. readyState (UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE)
+    // 3. responseText / response
+    // 4. readyState етапи (UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE)
 
 
     request.addEventListener('readystatechange', function() {
+        console.log(request.response + request.status);
         if (request.readyState === 4 && request.status == 200) {
             let data = JSON.parse(request.response);
 
