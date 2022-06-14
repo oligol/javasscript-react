@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // timer
 
-    let deadLine = '2022-06-12';
+    let deadLine = '2022-06-15';
 
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
@@ -112,38 +112,39 @@ window.addEventListener('DOMContentLoaded', function() {
     //     success: 'Спасибо! Скоро мы c вами свяжемся!',
     //     failure: 'Что-то пошло не так...!',
     // };
-    // let form = document.querySelector('.main-form'),
-    //     input = form.getElementsByTagName('input'),
+    // let forms = document.querySelectorAll('.main-form'),
+    //     input = document.getElementsByTagName('input'),
     //     statusMessage = document.createElement('div');
 
     //     statusMessage.classList.add('status');
-        
-    // form.addEventListener('submit', function(event) {
-    //     event.preventDefault();
-    //     form.appendChild(statusMessage);
+    //     forms.forEach(form => { 
+    //         form.addEventListener('submit', function(event) {
+    //             event.preventDefault();
+    //             form.appendChild(statusMessage);
 
-    //     let request = new XMLHttpRequest();
-    //     request.open('POST', 'server.php');
-    //     request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded');
+    //             let request = new XMLHttpRequest();
+    //             request.open('POST', 'server.php');
+    //             request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded');
 
-    //     let formData = new FormData(form);
-    //     request.send(formData);
+    //             let formData = new FormData(form);
+    //             request.send(formData);
 
-    //     request.addEventListener('readystatechange', function() {
-    //         if (request.readyState < 4) {
-    //             statusMessage.innerHTML = message.loading;
-    //         } else if (request.readyState === 4 && request.status == 200) {
-    //             statusMessage.innerHTML = message.success;
-    //         } else {
-    //             statusMessage.innerHTML = message.failure;
-    //         }
+    //             request.addEventListener('readystatechange', function() {
+    //                 if (request.readyState < 4) {
+    //                     statusMessage.innerHTML = message.loading;
+    //                 } else if (request.readyState === 4 && request.status == 200) {
+    //                     statusMessage.innerHTML = message.success;
+    //                 } else {
+    //                     statusMessage.innerHTML = message.failure;
+    //                 }
 
-    //         for (let i = 0; i < input.length; i++) {
-    //             input[i].value = '';
-    //         }
+    //                 for (let i = 0; i < input.length; i++) {
+    //                     input[i].value = '';
+    //                 }
+    //             });
+
+    //         }); 
     //     });
-
-    // }); 
 
 
     // form JSON
@@ -153,47 +154,49 @@ window.addEventListener('DOMContentLoaded', function() {
         success: 'Спасибо! Скоро мы c вами свяжемся!',
         failure: 'Что-то пошло не так...!',
     };
-    let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
+    let forms = document.querySelectorAll('.main-form'),
+        input = document.getElementsByTagName('input'),
         statusMessage = document.createElement('div');
 
-        statusMessage.classList.add('status');
-        
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        form.appendChild(statusMessage);
+    statusMessage.classList.add('status');
 
-        let request = new XMLHttpRequest();
-        request.open('POST', 'server.php');
-        // edit etRequestHeader
-        request.setRequestHeader ('Content-Type', 'application/json; charset=utf-8');
-
-        let formData = new FormData(form);
-        // add object empty and edit next strings
-        let obj = {};
-        formData.forEach(function(value, key) {
-            obj[key] = value;    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+    
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            // edit etRequestHeader
+            request.setRequestHeader ('Content-Type', 'application/json; charset=utf-8');
+    
+            let formData = new FormData(form);
+            // add object empty and edit next strings
+            let obj = {};
+            formData.forEach(function(value, key) {
+                obj[key] = value;    
+            });
+    
+            let json = JSON.stringify(obj);
+    
+            request.send(json);
+    
+            // add object empty and edit
+    
+            request.addEventListener('readystatechange', function() {
+                if (request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if (request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+    
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = '';
+                }
+            });
+    
         });
-
-        let json = JSON.stringify(obj);
-
-        request.send(json);
-
-        // add object empty and edit
-
-        request.addEventListener('readystatechange', function() {
-            if (request.readyState < 4) {
-                statusMessage.innerHTML = message.loading;
-            } else if (request.readyState === 4 && request.status == 200) {
-                statusMessage.innerHTML = message.success;
-            } else {
-                statusMessage.innerHTML = message.failure;
-            }
-
-            for (let i = 0; i < input.length; i++) {
-                input[i].value = '';
-            }
-        });
-
-    });
+    });    
 });
